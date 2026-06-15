@@ -67,13 +67,19 @@ def promedio(matrizDatos, matrizNombre):
     while i < 30:
         j = 0
         while j < 3:
-             while matrizDatos[i][j] != -1:
+             if matrizDatos[i][j] != -1:
                 sumaValores = sumaValores + matrizDatos[i][j]
                 j = j + 1
                 cantidad = cantidad + 1
-        i = i + 1
-    if matrizDatos[i][j] == -1:
-       print("Sin datos cargados")
+             else: 
+                if matrizDatos[0][0] == -1:
+                    print("Sin datos cargados")
+                    return
+                break          
+        else:           
+            i = i + 1
+            continue
+       
     promedio = sumaValores / cantidad
     print(f"El promedio de {matrizNombre} es: {promedio}")
     pass
@@ -102,8 +108,11 @@ def DiaHoraMenosLluvioso(MP):
                     print("Sin datos cargados")
                     return
                 break # salir del while de j   
-        i = i + 1
-     
+        else: 
+            i = i + 1
+            continue
+        break
+
     if horaMinimo == 0:
         horaString = "6:00 hs"
     elif horaMinimo == 1:
