@@ -53,7 +53,7 @@ except KeyboardInterrupt:
 
 # SUBMODULO: Promedio de Sensores
 
-def promedioSensores(Matriz):
+def promedioSensores():
     promedio(MT, "temperatura")
     promedio(MP, "precipitacion")
     promedio(MV, "velocidad del viento")
@@ -61,57 +61,48 @@ def promedioSensores(Matriz):
 
 # SUBMODULO: Promedio(matrizDatos, matrizNombre)
 def promedio(matrizDatos, matrizNombre):
+    if matrizDatos[0][0] == -1:
+        print("Sin datos cargados")
+        return
     i = 0
     sumaValores = 0
     cantidad = 0
     while i < 30:
         j = 0
         while j < 3:
-             if matrizDatos[i][j] != -1:
+            if matrizDatos[i][j] != -1:
                 sumaValores = sumaValores + matrizDatos[i][j]
-                j = j + 1
                 cantidad = cantidad + 1
-             else: 
-                if matrizDatos[0][0] == -1:
-                    print("Sin datos cargados")
-                    return
-                break          
-        else:           
-            i = i + 1
-            continue
-       
+            j = j + 1
+        i = i + 1
+
     promedio = sumaValores / cantidad
     print(f"El promedio de {matrizNombre} es: {promedio}")
-    pass
 
 # SUBMODULO: Día y hora menos lluvioso:
 def DiaHoraMenosLluvioso(MP):
+    if MP[0][0] == -1:
+        print("Sin datos cargados")
+        return
+
     i = 0
     minimo = MP[0][0]
-    horaMinimo = -2
+    horaMinimo = 0
     horaString = ""
-    diaMinimo = -2
+    diaMinimo = 0
 
     while i < 30:
         j = 0
         while j < 3:
             if MP[i][j] != -1:
-                if minimo <= MP[i][j]:
-                    pass    
-                else: 
+                if minimo > MP[i][j]:
                     minimo = MP[i][j]
                     horaMinimo = j  
                     diaMinimo = i
                 j = j + 1
             else:
-                if MP[i][j] == -1:     
-                    print("Sin datos cargados")
-                    return
                 break # salir del while de j   
-        else: 
-            i = i + 1
-            continue
-        break
+        i = i + 1
 
     if horaMinimo == 0:
         horaString = "6:00 hs"
@@ -121,7 +112,6 @@ def DiaHoraMenosLluvioso(MP):
         horaString = "22 hs"
     else: 
         print("Error de cálculo")
-        return
 
     print(f"Día de menor precipitación: {diaMinimo + 1}. Hora de menor precipitación: {horaString}")        
 
